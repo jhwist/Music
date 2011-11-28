@@ -2,26 +2,18 @@
    composer          = "Johann Sebastian Bach (1685-1750)"
    title             = "Invention 1"
    opus              = "BWV 772"
-   
-   mutopiatitle      = "Invention 1"
-   mutopiacomposer   = "BachJS"
-   mutopiaopus       = "BWV 772"
-   mutopiainstrument = "Harpsichord, Piano"
-   source            = "Bach-Gesellschaft"
-   style             = "Baroque"
-   copyright         = "Creative Commons Attribution-ShareAlike 3.0"
-   maintainer        = "jeff covey"
-   maintainerEmail   = "jeff.covey@pobox.com"
-   maintainerWeb     = "http://pobox.com/~jeff.covey/"
-   lastupdated       = "2006/08/21"
- footer = "Mutopia-2008/06/15-40"
- tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-align { \small \line { Sheet music from \with-url #"http://www.MutopiaProject.org" \line { \teeny www. \hspace #-1.0 MutopiaProject \hspace #-1.0 \teeny .org \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url #"http://www.LilyPond.org" \line { \teeny www. \hspace #-1.0 LilyPond \hspace #-1.0 \teeny .org } by \maintainer \hspace #-1.0 . \hspace #0.5 Copyright © 2008. \hspace #0.5 Reference: \footer } } \line { \teeny \line { Licensed under the Creative Commons Attribution-ShareAlike 3.0 (Unported) License, for details see: \hspace #-0.5 \with-url #"http://creativecommons.org/licenses/by-sa/3.0" http://creativecommons.org/licenses/by-sa/3.0 } } } }
 }
 
 \version "2.11.46"
 
-voiceone =
+global= {
+  \time 4/4
+  \key c \major
+}
+
+violin =
 \relative c' {
+   \set Staff.instrumentName = #"Vl"
    r16  c[ d e]   f[ d e c]  g'8[ c b^\prall c]              | % 1
    d16[ g, a b]  c[ a b g]  d'8[ g f^\prall g]               | % 2
    e16[ a g f]  e[ g f a]  g[ f e d]  c[ e d f]              | % 3
@@ -47,8 +39,9 @@ voiceone =
    \bar "|."
 }
 
-voicetwo =
+cello = \new Voice {
 \relative c {
+   \set Staff.instrumentName = #"Vc"
    \clef "bass"
    r2          r16   c[ d e]  f[ d e c]                      | % 1
    g'8[ g,] r4 r16  g'[ a b]  c[ a b g]                      | % 2
@@ -58,7 +51,8 @@ voicetwo =
    e[ fis g e]  b8.[ c16]  d8[ d,]                           | % 6
    r16  g[ a b]  c[ a b g]  d'8[ g fis g]                    | % 7
    a16[ d, e fis]  g[ e fis d]  a'8[ d c d]                  | % 8
-   g,16[ \clef "treble" g' f e]  d[ f e g]  f8[ e f d]       | % 9
+   g,16[ g' f e]  d[ f e g]  f8[ e f d]       | % 9
+   \clef "treble"
    e16[ a g f]  e[ g f a]  g8[ f g e]                        | % 10
    f16[ bes a g]  f[ a g bes]  a[ g f e]  d[ f e g]          | % 11
    f[ e d c]  b[ d c e]  d[ c b a]  gis[ b a c]              | % 12
@@ -75,22 +69,35 @@ voicetwo =
    <c c,>1\arpeggio_\fermata                                 | % 22
    \bar "|."
 }
+}
 
-\score {
-   \context PianoStaff <<
-      \set PianoStaff.connectArpeggios = ##t
-      \context Staff = "one" << \voiceone >>
-      \context Staff = "two" << \voicetwo >>
-   >>
-   
-   \layout { }
-   
-  \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 80 4)
-      }
-    }
+music = {
+  <<
+    \tag #'score \tag #'vl \new Staff { << \global \violin >> }
+    \tag #'score \tag #'vc \new Staff { << \global \cello >> }
+  >>
+}
 
+\book {
+  \bookOutputSuffix "part"
+  \score {
+    \new StaffGroup \keepWithTag #'score \music
+  \layout { }
+  }
+}
 
+\book {
+  \bookOutputSuffix "vl"
+  \score {
+    \new StaffGroup \keepWithTag #'vl \music
+      \layout { }
+  }
+}
+
+\book {
+  \bookOutputSuffix "vc"
+  \score {
+    \new StaffGroup \keepWithTag #'vc \music
+      \layout { }
+  }
 }
