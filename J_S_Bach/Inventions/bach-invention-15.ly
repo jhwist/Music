@@ -1,31 +1,15 @@
 \header {
-  enteredby = "Allen Garvin"
-  maintainer = "Allen Garvin"
-  maintainerEmail = "AGarvin@tribalddb.com"
-  copyright = "Public Domain"
-  filename = "bach-invention-15.ly"
-  title = "Invention 15"
+  title = ##f
+  subtitle = "Invention 15"
   opus = "BWV 786"
-  composer = "Johann Sebastian Bach (1685-1750)"
-  style = "Baroque"
-  source = "Bach-Gesellschaft"
-  lastupdated = "2005/12/25"
-
-  mutopiainstrument = "Harpsichord, Piano"
-  mutopiatitle =      "Invention 15"
-  mutopiacomposer =   "BachJS"
-  mutopiaopus =       "BWV 786"
-
- footer = "Mutopia-2008/08/23-68"
- tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-align { \small \line { Sheet music from \with-url #"http://www.MutopiaProject.org" \line { \teeny www. \hspace #-1.0 MutopiaProject \hspace #-1.0 \teeny .org \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url #"http://www.LilyPond.org" \line { \teeny www. \hspace #-1.0 LilyPond \hspace #-1.0 \teeny .org } by \maintainer \hspace #-1.0 . \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details see: \hspace #-0.5 \with-url #"http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } }
 }
 
-\version "2.11.46"
-
-voiceone =  \relative c'' {
+global = {
   \key b \minor
   \time 4/4
+}
 
+violin =  \relative c'' {
   r8  b16[ ais]  b8[ fis]  g[\prall fis]  b[ fis] |
   fis[\prall e]  cis'[ e,]  e[\prall d16 cis]  d[ e fis e] |
   fis8\mordent r r16  a[ gis a]  b[ cis b gis]  a[ b a fis] |
@@ -51,9 +35,7 @@ voiceone =  \relative c'' {
 }
 
 
-voicetwo =  \relative c {
-  \key b \minor
-  \time 4/4
+cello =  \relative c {
   \clef "bass"
 
   b8 r d r e r d r |
@@ -80,34 +62,9 @@ voicetwo =  \relative c {
   b1\fermata \bar "|."
 }
 
-\score {
-   \context GrandStaff <<
-    \context Staff = "one" <<
-      \voiceone
-    >>
-    \context Staff = "two" <<
-      \voicetwo
-    >>
+inventionfiveteen = {
+  <<
+    \tag #'score \tag #'vl \new Staff { << \global \violin >> }
+    \tag #'score \tag #'vc \new Staff { << \global \cello >> }
   >>
-
-  \layout{ }
-  
-  \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 105 4)
-      }
-    }
-
-
 }
-
-%{
-changes by Urs Metzger, 2005/12/25
-version 2.4.0 => 2.6.4
-voiceone, bar 6: gis' => gis''
-voiceone, bar 13: 8th 16th, c => cis
-voicetwo, bar 12: d,8[ d'16 e] ...  => d,8[ d'16 cis] ...
-voiceone, bar 13: a[\prall g] e[ g] => a[\prall g] e'[ g,]
-%}
-

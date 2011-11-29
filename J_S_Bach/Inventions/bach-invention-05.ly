@@ -1,32 +1,14 @@
 \header {
-  enteredby = "Allen Garvin"
-  maintainer = "Allen Garvin"
-  maintainerEmail = "AGarvin@tribalddb.com"
-  copyright = "Public Domain"
-  filename = "bach-invention-05.ly"
-  title = "Invention 5"
+  subtitle = "Invention 5"
   opus = "BWV 776"
-  composer = "Johann Sebastian Bach (1685-1750)"
-  style = "Baroque"
-  source = "Bach-Gesellschaft"
-  lastupdated = "2005/12/25"
-
-  mutopiainstrument = "Harpsichord, Piano"
-  mutopiatitle =      "Invention 5"
-  mutopiacomposer =   "BachJS"
-  mutopiaopus =       "BWV 776"
- 
- footer = "Mutopia-2008/06/15-55"
- tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-align { \small \line { Sheet music from \with-url #"http://www.MutopiaProject.org" \line { \teeny www. \hspace #-1.0 MutopiaProject \hspace #-1.0 \teeny .org \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url #"http://www.LilyPond.org" \line { \teeny www. \hspace #-1.0 LilyPond \hspace #-1.0 \teeny .org } by \maintainer \hspace #-1.0 . \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details see: \hspace #-0.5 \with-url #"http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } }
 }
 
-\version "2.11.46"
-
-voiceone =  \relative c' {
-  \set Staff.midiInstrument = "harpsichord"
+global = {
   \key ees \major
   \time 4/4
+}
 
+violin =  \relative c' {
   r8  ees16[ d]  ees8[\mordent f] g4\mordent aes |                 % bar 1
   r8  f16[ ees]  f8[\mordent g] aes4\mordent bes |                 % bar 2
   g8[ c bes\prall aes]  g16[ aes bes aes]  g8[ f] |                % bar 3
@@ -76,10 +58,7 @@ voiceone =  \relative c' {
   f4\downmordent ees2\fermata\bar "|."                             % bar 32
 }
 
-voicetwo =  \relative c {
-  \set Staff.midiInstrument = "harpsichord"
-  \key ees \major
-  \time 4/4
+cello =  \relative c {
   \clef "bass"
   ees4\mordent ees, r16  ees''16[ d ees]  c[ d bes c] |
   aes[ c bes c]  aes[ bes g aes]  f[ ees' d c]  d[ ees c d] |
@@ -115,37 +94,10 @@ voicetwo =  \relative c {
   ees8[ g, aes bes] ees,2\fermata \bar "|."
 }
 
-\score {
-   \context GrandStaff <<
-    \context Staff = "one" <<
-      \voiceone
-    >>
-    \context Staff = "two" <<
-      \voicetwo
-    >>
+inventionfive = {
+  <<
+    \tag #'score \tag #'vl \new Staff { << \global \violin >> }
+    \tag #'score \tag #'vc \new Staff { << \global \cello >> }
   >>
-
-  \layout{ }
-  
-  \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 105 4)
-      }
-    }
-
-
 }
-
-
-%{
-changes by Urs Metzger, 2005/12/25
-version 1.6.10 => 2.6.4
-voiceone, bar 16: f8[ f,16 g]  f8[\mordent g] aes4\mordent g => f8[ f,16 e]  f8[\mordent g] aes4\mordent bes
-voiceone, bar 30: ees\mordent => ees\prall
-voiceone, bar 32: hide triplet braket and number
-voiceone, bar 32: f4\mordent => f4\downmordent
-voicetwo, bar 4: 1st 16th: ees => g
-midiInstrument none = "harpsichord"
-%}
 

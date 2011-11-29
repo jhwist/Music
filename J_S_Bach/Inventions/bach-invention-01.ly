@@ -1,7 +1,7 @@
 \header {
   opus = "BWV 722"
+  title = ##f
   subtitle = "Invention No. 1" 
-  composer = "J.S. Bach"
 }
 
 global= {

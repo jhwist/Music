@@ -1,28 +1,13 @@
 \header {
-   title             = "Invention 6"
-   composer          = "J. S. Bach (1685-1750)"
+   subtitle             = "Invention 6"
    opus              = "BWV 777"
-   
-   mutopiatitle      = "Invention 6"
-   mutopiacomposer   = "BachJS"
-   mutopiaopus       = "BWV 777"
-   mutopiainstrument = "Harpsichord, Piano"
-   source            = "Bach-Gesellschaft"
-   style             = "Baroque"
-   copyright         = "Creative Commons Attribution-ShareAlike 3.0"
-   maintainer        = "jeff covey"
-   maintainerEmail   = "jeff.covey@pobox.com"
-   maintainerWeb     = "http://pobox.com/~jeff.covey/"
-   lastupdated       = "2006/08/26"
- footer = "Mutopia-2008/06/15-159"
- tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-align { \small \line { Sheet music from \with-url #"http://www.MutopiaProject.org" \line { \teeny www. \hspace #-1.0 MutopiaProject \hspace #-1.0 \teeny .org \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url #"http://www.LilyPond.org" \line { \teeny www. \hspace #-1.0 LilyPond \hspace #-1.0 \teeny .org } by \maintainer \hspace #-1.0 . \hspace #0.5 Copyright © 2008. \hspace #0.5 Reference: \footer } } \line { \teeny \line { Licensed under the Creative Commons Attribution-ShareAlike 3.0 (Unported) License, for details see: \hspace #-0.5 \with-url #"http://creativecommons.org/licenses/by-sa/3.0" http://creativecommons.org/licenses/by-sa/3.0 } } } }
 }
 
-\version "2.11.46"
+global =  {
+  \key e \major \time 3/8 
+}
 
-global =  { \key e \major \time 3/8 }
-
-voiceOne =
+violin =
 \relative c'' {
    
    \repeat volta 2 {
@@ -96,7 +81,7 @@ voiceOne =
    }
 }
 
-voiceTwo =
+cello =
 \relative c {
    \clef "bass"
    
@@ -167,39 +152,14 @@ voiceTwo =
       e[ b' gis e b gis]                                             | % 61
       e4 e'8                                                         | % 62
       \override Staff.RehearsalMark   #'direction = #-1
-      \mark \markup { \musicglyph #"scripts.dfermata" }
+      \mark \markup { \musicglyph #"scripts.ufermata" }
    }
 }
 
-\score {
-   \context GrandStaff <<
-      \context Staff = "one" <<
-         \voiceOne
-         \global
-      >>
-      \context Staff = "two" <<
-         \voiceTwo
-         \global
-      >>
-   >>
-   
-   \layout{
-      \context{\Score \remove   "Mark_engraver" }
-      \context{\Staff \consists "Mark_engraver" }
-   }
-   
-  \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 80 8)
-      }
-    }
-
-
+inventionsix = {
+  <<
+    \tag #'score \tag #'vl \new Staff { << \global \violin >> }
+    \tag #'score \tag #'vc \new Staff { << \global \cello >> }
+  >>
 }
 
-%{
-   changes by Urs Metzger, 2005/12/25
-   version 2.6.0 => 2.6.4
-   voiceone, bar 17: 4th 16th dis => b
-%}

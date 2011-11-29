@@ -1,7 +1,7 @@
 \header {
   opus = "BWV 773"
+  title = ##f
   subtitle = "Invention No. 2" 
-  composer = "J.S. Bach"
 }
 
 

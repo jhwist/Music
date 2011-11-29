@@ -1,31 +1,14 @@
 \header {
-  enteredby =  "Allen Garvin"
-  maintainer =    "Allen Garvin"
-  maintainerEmail = "AGarvin@tribalddb.com"
-  copyright =  "Public Domain"
-  filename =   "bach-invention-10.ly"
-  title =   "Invention 10"
+  subtitle =   "Invention 10"
   opus =    "BWV 781"
-  composer =   "Johann Sebastian Bach (1685-1750)"
-  style =   "Baroque"
-  source =  "Bach-Gesellschaft"
-  lastupdated = "2005/12/25"
-
-  mutopiainstrument = "Harpsichord, Piano"
-  mutopiatitle =      "Invention 10"
-  mutopiacomposer =   "BachJS"
-  mutopiaopus =       "BWV 781"
- 
- footer = "Mutopia-2008/06/15-62"
- tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-align { \small \line { Sheet music from \with-url #"http://www.MutopiaProject.org" \line { \teeny www. \hspace #-1.0 MutopiaProject \hspace #-1.0 \teeny .org \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url #"http://www.LilyPond.org" \line { \teeny www. \hspace #-1.0 LilyPond \hspace #-1.0 \teeny .org } by \maintainer \hspace #-1.0 . \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details see: \hspace #-0.5 \with-url #"http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } }
 }
 
-\version "2.11.46"
-
-voiceone =  \relative c'' {
-  \set Staff.midiInstrument = "harpsichord"
+global = {
   \key g \major
   \time 9/8
+}
+
+violin =  \relative c'' {
   g8[ b d]  b[ g d']  b[ g g'] |                     % bar 1
   fis4\prall d8  a'[ fis d]  a'[ fis d] |            % bar 2
   g[ d b]  f'[ d b]  f'[ d b] |                      % bar 3
@@ -61,10 +44,7 @@ voiceone =  \relative c'' {
 }
 
 
-voicetwo =  \relative c {
-  \set Staff.midiInstrument = "harpsichord"
-  \key g \major
-  \time 9/8
+cello =  \relative c {
   \clef "bass"
   r2. r4. |                   % bar 1
   d8[ fis a]  fis[ d a']  fis[ d c'] |               % bar 2
@@ -100,35 +80,10 @@ voicetwo =  \relative c {
   g4. ~  g8[ b d] g4.  \bar "|."                     % bar 32
 }
 
-\score {
-   \context GrandStaff <<
-    \context Staff = "one" <<
-      \voiceone
-    >>
-    \context Staff = "two" <<
-      \voicetwo
-    >>
+inventionten = {
+  <<
+    \tag #'score \tag #'vl \new Staff { << \global \violin >> }
+    \tag #'score \tag #'vc \new Staff { << \global \cello >> }
   >>
-
-  \layout{ }
-  
-  \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 172 4)
-      }
-    }
-
-
 }
-
-%{
-changes by Urs Metzger, 2005/12/25
-version 1.6.10 => 2.6.4
-voiceone, bar 8: e[ b g'] => d[ a fis']
-voiceone, bar 28: c => c'
-voiceone, bar 29: d => d,
-midiInstrument none = "harpsichord"
-midi tempo 4 = 160 => 4 => 172
-%}
 

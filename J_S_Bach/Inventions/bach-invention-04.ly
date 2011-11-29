@@ -1,32 +1,14 @@
-#(ly:set-option 'old-relative)
 \header {
-  enteredby = 	"Allen Garvin"
-  maintainer = 	"Allen Garvin"
-  maintainerEmail = "AGarvin@tribalddb.com"
-  copyright = 	"Public Domain"
-  filename = 	"bach-invention-04.ly"
-  title = 	"Invention 4"
+  subtitle = 	"Invention 4"
   opus = 	"BWV 775"
-  composer =	"Johann Sebastian Bach (1685-1750)"
-  style =	"Baroque"
-  source =	"Bach-Gesellschaft"
-  lastupdated =	"2003/May/17"
-
-  mutopiainstrument = "Harpsichord, Piano"
-  mutopiatitle =      "Invention 4"
-  mutopiacomposer =   "BachJS"
-  mutopiaopus =       "BWV 775"
-
- footer = "Mutopia-2008/06/15-67"
- tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-align { \small \line { Sheet music from \with-url #"http://www.MutopiaProject.org" \line { \teeny www. \hspace #-1.0 MutopiaProject \hspace #-1.0 \teeny .org \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url #"http://www.LilyPond.org" \line { \teeny www. \hspace #-1.0 LilyPond \hspace #-1.0 \teeny .org } by \maintainer \hspace #-1.0 . \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details see: \hspace #-0.5 \with-url #"http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } }
 }
 
-\version "2.11.46"
-
-voiceone =  \relative c' {
+global = {
   \key d \minor
   \time 3/8
+}
 
+violin =  \relative c' {
    d16[ e f g a bes] |						% bar 1
    cis,[ bes' a g f e] |						% bar 2
    f8[ a d] |							% bar 3
@@ -82,9 +64,7 @@ voiceone =  \relative c' {
 }
 
   
-voicetwo =  \relative c {
-  \key d \minor
-  \time 3/8
+cello =  \relative c {
   \clef "bass"
 
   r4. |								% bar 1
@@ -141,24 +121,10 @@ voicetwo =  \relative c {
   d,4.\fermata \bar "|."       				% bar 52
 }
 
-\score {
-   \context GrandStaff << 
-    \context Staff = "one" <<
-      \voiceone
-    >>
-    \context Staff = "two" <<
-      \voicetwo
-    >>
+inventionfour = {
+  <<
+    \tag #'score \tag #'vl \new Staff { << \global \violin >> }
+    \tag #'score \tag #'vc \new Staff { << \global \cello >> }
   >>
-
-  \layout{ }
-  
-  \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 90 4)
-      }
-    }
-
-
 }
+

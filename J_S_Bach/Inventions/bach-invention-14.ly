@@ -1,32 +1,14 @@
 \header {
-  enteredby =  "Allen Garvin"
-  maintainer =    "Allen Garvin"
-  maintainerEmail = "AGarvin@tribalddb.com"
-  copyright =  "Public Domain"
-  filename =   "bach-invention-14.ly"
-  title =   "Invention 14"
+  subtitle =   "Invention 14"
   opus =    "BWV 785"
-  composer =   "Johann Sebastian Bach (1685-1750)"
-  style =   "Baroque"
-  source =  "Bach-Gesellschaft"
-  lastupdated = "2005/12/25"
-
-  mutopiainstrument = "Harpsichord, Piano"
-  mutopiatitle =      "Invention 14"
-  mutopiacomposer =   "BachJS"
-  mutopiaopus =       "BWV 785"
-
- footer = "Mutopia-2008/06/15-72"
- tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-align { \small \line { Sheet music from \with-url #"http://www.MutopiaProject.org" \line { \teeny www. \hspace #-1.0 MutopiaProject \hspace #-1.0 \teeny .org \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url #"http://www.LilyPond.org" \line { \teeny www. \hspace #-1.0 LilyPond \hspace #-1.0 \teeny .org } by \maintainer \hspace #-1.0 . \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details see: \hspace #-0.5 \with-url #"http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } }
 }
 
-\version "2.11.46"
-
-voiceone =  \relative c'' {
-  \set Staff.midiInstrument = "harpsichord"
+global = {
   \key bes \major
   \time 4/4
+}
 
+violin =  \relative c'' {
   r16  bes32[ c d c bes16]  f'[ d bes' f]
   d[ f32 ees d ees f16]  bes,[ d f, aes] |                         % bar 1
   g[ ees32 f g f ees16]  bes'[ g ees' bes]
@@ -60,15 +42,10 @@ voiceone =  \relative c'' {
   f,8[ ees'] ~  ees16[ c32 d ees d c16]
   f[ d32 c bes c d16]  f,[ bes c a] |                              % bar 19
   bes1\fermata \bar "|."                                           % bar 20
-
 }
 
-voicetwo =  \relative c' {
-  \set Staff.midiInstrument = "harpsichord"
-  \key bes \major
-  \time 4/4
+cello =  \relative c' {
   \clef "bass"
-
   bes8[ bes, d f] bes4 r |                                         % bar 1
   r8  bes,[ ees g] bes4 r |                                        % bar 2
   r8  bes,[ c ees] a4 r |                                          % bar 3
@@ -106,38 +83,9 @@ voicetwo =  \relative c' {
 
 }
 
-\score {
-   \context GrandStaff <<
-    \context Staff = "one" <<
-      \voiceone
-    >>
-    \context Staff = "two" <<
-      \voicetwo
-    >>
+inventionfourteen = {
+  <<
+    \tag #'score \tag #'vl \new Staff { << \global \violin >> }
+    \tag #'score \tag #'vc \new Staff { << \global \cello >> }
   >>
-
-  \layout{ }
-  
-  \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 65 4)
-      }
-    }
-
-
 }
-
-%{
-changes by Urs Metzger, 2005/12/25
-version 1.6.10 => 2.6.4
-voiceone, bar 11: g16[ c32 d ees d c16]  g[ ees c' g] => g16[ c,32 d ees d c16]  g'[ ees c' g]
-voicetwo, bar 6, 4/4 + bar 7, 1/4, one octave down
-midiInstrument none = "harpsichord"
-%}
-
-%{
-changes by Chris Sawer, 2005/12/27
-remove line-width command in layout section
-%}
-

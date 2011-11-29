@@ -1,32 +1,15 @@
 \header {
-  enteredby =  "Allen Garvin"
-  maintainer =    "Allen Garvin"
-  maintainerEmail = "AGarvin@tribalddb.com"
-  copyright =  "Public Domain"
-  filename =   "bach-invention-11.ly"
-  title =   "Invention 11"
+  subtitle =   "Invention 11"
   opus =    "BWV 782"
-  composer =   "Johann Sebastian Bach (1685-1750)"
-  style =   "Baroque"
-  source =  "Bach-Gesellschaft"
-  lastupdated = "2005/12/25"
-
-  mutopiainstrument = "Harpsichord, Piano"
-  mutopiatitle =      "Invention 11"
-  mutopiacomposer =   "BachJS"
-  mutopiaopus =       "BWV 782"
-
- footer = "Mutopia-2008/06/15-71"
- tagline = \markup { \override #'(box-padding . 1.0) \override #'(baseline-skip . 2.7) \box \center-align { \small \line { Sheet music from \with-url #"http://www.MutopiaProject.org" \line { \teeny www. \hspace #-1.0 MutopiaProject \hspace #-1.0 \teeny .org \hspace #0.5 } • \hspace #0.5 \italic Free to download, with the \italic freedom to distribute, modify and perform. } \line { \small \line { Typeset using \with-url #"http://www.LilyPond.org" \line { \teeny www. \hspace #-1.0 LilyPond \hspace #-1.0 \teeny .org } by \maintainer \hspace #-1.0 . \hspace #0.5 Reference: \footer } } \line { \teeny \line { This sheet music has been placed in the public domain by the typesetter, for details see: \hspace #-0.5 \with-url #"http://creativecommons.org/licenses/publicdomain" http://creativecommons.org/licenses/publicdomain } } } }
 }
 
-\version "2.11.46"
 
-voiceone =  \relative c' {
-  \set Staff.midiInstrument = "harpsichord"
+global = {
   \key g \minor
   \time 4/4
+}
 
+violin =  \relative c' {
   r16  d[ e fis]  g[ a bes g]  a[ g fis e]  d[ c' bes a] |
   g[ f e d]  c[ bes' a g]  d'[ c bes d]  c[ bes a c] |
   bes[ a g a]  bes[ c d e]  f8[ d] r d |
@@ -52,10 +35,7 @@ voiceone =  \relative c' {
   cis,[ g' a bes]  d,[ a' g\prall fis] g2\mordent  \bar "|."
 }
 
-voicetwo =  \relative c {
-  \set Staff.midiInstrument = "harpsichord"
-  \key g \minor
-  \time 4/4
+cello =  \relative c {
   \clef "bass"
 
   g4 r8 g'  fis16[ g a g]  fis8[ f] |
@@ -83,32 +63,11 @@ voicetwo =  \relative c {
   bes[ a16 g] \stemDown  d'8[\mordent d,] \stemNeutral g2 \bar "|."
 }
 
-\score {
-   \context GrandStaff <<
-    \context Staff = "one" <<
-      \voiceone
-    >>
-    \context Staff = "two" <<
-      \voicetwo
-    >>
+
+inventioneleven = {
+  <<
+    \tag #'score \tag #'vl \new Staff { << \global \violin >> }
+    \tag #'score \tag #'vc \new Staff { << \global \cello >> }
   >>
-
-  \layout{ }
-  
-  \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 85 4)
-      }
-    }
-
-
 }
-
-%{
-changes by Urs Metzger, 2005/12/25
-version 1.6.10 => 2.6.4
-voiceone, bar 14: g[ f ees g'] => g'[ f ees g]
-midiInstrument none = "harpsichord"
-%}
 
