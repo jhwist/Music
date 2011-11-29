@@ -1,0 +1,28 @@
+
+namespace "score" do
+  desc "Create the All-In-One score"
+  task :all do
+  end
+
+  desc "Create the Violin score"
+  task :violin do
+  end
+
+  desc "Create the Cello score"
+  task :cello do
+  end
+end
+
+namespace "pdf" do
+  desc "Generate the All-In-One PDF"
+  task :all do
+  end
+
+  desc "Generate the Violin PDF"
+  task :violin do
+  end
+
+  desc "Generate the Cello PDF"
+  task :cello do
+  end
+end
